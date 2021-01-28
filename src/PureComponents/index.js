@@ -63,12 +63,17 @@ export class NonPrimitivePureComponent extends PureComponent {
   componentDidMount() {
     const { array } = this.state;
     let count = 0;
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.setState({
         array: [...array, count + 1],
       });
       count++;
+      // console.log(count);
     }, 3000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   render() {
