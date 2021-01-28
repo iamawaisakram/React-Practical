@@ -1,11 +1,12 @@
 import logo from "./logo.svg";
 import "./App.css";
-import PureComponent from "./PureComponents";
+import PureComponent, { NonPrimitivePureComponent } from "./PureComponents";
 
 function App() {
   return (
     <div className="App">
       <PureComponent />
+      <NonPrimitivePureComponent />
     </div>
   );
 }

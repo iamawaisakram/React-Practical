@@ -29,12 +29,15 @@
   * Use Pure Components, in the case when the props and state changes are made to
   * primitive type variable, state and props changes to reference variable may
   * lead to incorrect results and inconsistent rendering.
+  *
+  * You can use pure-components for non-primitive data if you can change
+  * the reference of the variable you are updating, either in state or in props
 */
 
 // * Example 1: No re-rendering
 import React, { PureComponent } from "react";
 
-class primitivePureComponent extends PureComponent {
+class PrimitivePureComponent extends PureComponent {
   state = {
     counter: 0,
   };
@@ -50,8 +53,26 @@ class primitivePureComponent extends PureComponent {
   }
 }
 
-export default primitivePureComponent;
+export default PrimitivePureComponent;
 
-export class nonPrimitivePureComponent extends PureComponent {
-  render() {}
+export class NonPrimitivePureComponent extends PureComponent {
+  state = {
+    array: [1, 2, 3],
+  };
+
+  componentDidMount() {
+    const { array } = this.state;
+    let count = 0;
+    setInterval(() => {
+      this.setState({
+        array: [...array, count + 1],
+      });
+      count++;
+    }, 3000);
+  }
+
+  render() {
+    const { array } = this.state;
+    return <div>Length of array is {array.length}</div>;
+  }
 }
